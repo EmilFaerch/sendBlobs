@@ -1,0 +1,75 @@
+﻿Build started 02/11/2017 13.34.27.
+     1>Project "C:\Users\EmilFaerch\OneDrive - Aalborg Universitet\Image Processing\sendBLOBS\sendBLOBS\sendBLOBS.vcxproj" on node 2 (Rebuild target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\CL.exe /c /IC:\Ceemple\OpenCV4VS\include /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0" /AI"C:\Program Files (x86)\Windows Kits\8.1\References\CommonConfiguration\Neutral" /Zi /clr /nologo /W3 /WX- /sdl /Od /D _MBCS /EHa /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Debug\\" /Fd"x64\Debug\vc120.pdb" /TP /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\mscorlib.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\System.Data.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\System.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\System.Drawing.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\System.Windows.Forms.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\System.Xml.dll" /errorReport:prompt /clr:nostdlib main.cpp
+         main.cpp
+     1>c:\users\emilfaerch\onedrive - aalborg universitet\image processing\sendblobs\sendblobs\Settings.h(368): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\emilfaerch\onedrive - aalborg universitet\image processing\sendblobs\sendblobs\Settings.h(369): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\emilfaerch\onedrive - aalborg universitet\image processing\sendblobs\sendblobs\Settings.h(370): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\emilfaerch\onedrive - aalborg universitet\image processing\sendblobs\sendblobs\Settings.h(371): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\emilfaerch\onedrive - aalborg universitet\image processing\sendblobs\sendblobs\Settings.h(372): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\emilfaerch\onedrive - aalborg universitet\image processing\sendblobs\sendblobs\Settings.h(373): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\emilfaerch\onedrive - aalborg universitet\image processing\sendblobs\sendblobs\Settings.h(374): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\emilfaerch\onedrive - aalborg universitet\image processing\sendblobs\sendblobs\Settings.h(375): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\emilfaerch\onedrive - aalborg universitet\image processing\sendblobs\sendblobs\Settings.h(376): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\emilfaerch\onedrive - aalborg universitet\image processing\sendblobs\sendblobs\Settings.h(377): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\emilfaerch\onedrive - aalborg universitet\image processing\sendblobs\sendblobs\Settings.h(432): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\emilfaerch\onedrive - aalborg universitet\image processing\sendblobs\sendblobs\Settings.h(433): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\emilfaerch\onedrive - aalborg universitet\image processing\sendblobs\sendblobs\Settings.h(437): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\emilfaerch\onedrive - aalborg universitet\image processing\sendblobs\sendblobs\Settings.h(438): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\emilfaerch\onedrive - aalborg universitet\image processing\sendblobs\sendblobs\Settings.h(442): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\emilfaerch\onedrive - aalborg universitet\image processing\sendblobs\sendblobs\Settings.h(443): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\emilfaerch\onedrive - aalborg universitet\image processing\sendblobs\sendblobs\Settings.h(447): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\emilfaerch\onedrive - aalborg universitet\image processing\sendblobs\sendblobs\Settings.h(448): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\emilfaerch\onedrive - aalborg universitet\image processing\sendblobs\sendblobs\Settings.h(452): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\emilfaerch\onedrive - aalborg universitet\image processing\sendblobs\sendblobs\Settings.h(453): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>main.cpp(106): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>c:\ceemple\opencv4vs\include\opencv2\core\cvstd.hpp(592): warning C4793: 'cv::String::String' : function compiled as native :
+         	Found an intrinsic not supported in managed code
+     1>c:\ceemple\opencv4vs\include\opencv2\core\mat.inl.hpp(359): warning C4793: 'cv::Mat::Mat' : function compiled as native :
+         	Found an intrinsic not supported in managed code
+     1>c:\ceemple\opencv4vs\include\opencv2\core\mat.inl.hpp(644): warning C4793: 'cv::Mat::release' : function compiled as native :
+         	Found an intrinsic not supported in managed code
+     1>c:\ceemple\opencv4vs\include\opencv2\core\mat.inl.hpp(1679): warning C4793: 'cv::SparseMat::addref' : function compiled as native :
+         	Found an intrinsic not supported in managed code
+     1>c:\ceemple\opencv4vs\include\opencv2\core\mat.inl.hpp(3280): warning C4793: 'cv::UMat::addref' : function compiled as native :
+         	Found an intrinsic not supported in managed code
+     1>c:\ceemple\opencv4vs\include\opencv2\core\ptr.inl.hpp(67): warning C4793: 'cv::detail::PtrOwner::incRef' : function compiled as native :
+         	Found an intrinsic not supported in managed code
+     1>c:\ceemple\opencv4vs\include\opencv2\core\ptr.inl.hpp(72): warning C4793: 'cv::detail::PtrOwner::decRef' : function compiled as native :
+         	Found an intrinsic not supported in managed code
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\CL.exe /c /IC:\Ceemple\OpenCV4VS\include /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0" /AI"C:\Program Files (x86)\Windows Kits\8.1\References\CommonConfiguration\Neutral" /Zi /clr /nologo /W3 /WX- /sdl /Od /D _MBCS /Gm- /EHa /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Debug\\" /Fd"x64\Debug\vc120.pdb" /TP /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\mscorlib.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\System.Data.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\System.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\System.Drawing.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\System.Windows.Forms.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\System.Xml.dll" /errorReport:prompt /clr:nostdlib Settings.cpp
+         Settings.cpp
+     1>c:\users\emilfaerch\onedrive - aalborg universitet\image processing\sendblobs\sendblobs\Settings.h(368): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\emilfaerch\onedrive - aalborg universitet\image processing\sendblobs\sendblobs\Settings.h(369): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\emilfaerch\onedrive - aalborg universitet\image processing\sendblobs\sendblobs\Settings.h(370): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\emilfaerch\onedrive - aalborg universitet\image processing\sendblobs\sendblobs\Settings.h(371): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\emilfaerch\onedrive - aalborg universitet\image processing\sendblobs\sendblobs\Settings.h(372): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\emilfaerch\onedrive - aalborg universitet\image processing\sendblobs\sendblobs\Settings.h(373): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\emilfaerch\onedrive - aalborg universitet\image processing\sendblobs\sendblobs\Settings.h(374): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\emilfaerch\onedrive - aalborg universitet\image processing\sendblobs\sendblobs\Settings.h(375): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\emilfaerch\onedrive - aalborg universitet\image processing\sendblobs\sendblobs\Settings.h(376): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\emilfaerch\onedrive - aalborg universitet\image processing\sendblobs\sendblobs\Settings.h(377): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\emilfaerch\onedrive - aalborg universitet\image processing\sendblobs\sendblobs\Settings.h(432): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\emilfaerch\onedrive - aalborg universitet\image processing\sendblobs\sendblobs\Settings.h(433): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\emilfaerch\onedrive - aalborg universitet\image processing\sendblobs\sendblobs\Settings.h(437): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\emilfaerch\onedrive - aalborg universitet\image processing\sendblobs\sendblobs\Settings.h(438): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\emilfaerch\onedrive - aalborg universitet\image processing\sendblobs\sendblobs\Settings.h(442): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\emilfaerch\onedrive - aalborg universitet\image processing\sendblobs\sendblobs\Settings.h(443): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\emilfaerch\onedrive - aalborg universitet\image processing\sendblobs\sendblobs\Settings.h(447): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\emilfaerch\onedrive - aalborg universitet\image processing\sendblobs\sendblobs\Settings.h(448): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\emilfaerch\onedrive - aalborg universitet\image processing\sendblobs\sendblobs\Settings.h(452): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\emilfaerch\onedrive - aalborg universitet\image processing\sendblobs\sendblobs\Settings.h(453): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\CL.exe /c /IC:\Ceemple\OpenCV4VS\include /Zi /clr /nologo /W3 /WX- /sdl /Od /D _MBCS /EHa /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Debug\\" /Fd"x64\Debug\vc120.pdb" /TP /errorReport:prompt "C:\Users\EmilFaerch\AppData\Local\Temp\.NETFramework,Version=v4.0.AssemblyAttributes.cpp"
+         .NETFramework,Version=v4.0.AssemblyAttributes.cpp
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\EmilFaerch\OneDrive - Aalborg Universitet\Image Processing\sendBLOBS\x64\Debug\sendBLOBS.exe" /INCREMENTAL /NOLOGO /LIBPATH:C:\Ceemple\OpenCV4VS\lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib StatTimer.lib clBLAS.lib clFFT.lib opencv_calib3d300d.lib opencv_core300d.lib opencv_cuda300d.lib opencv_cudaarithm300d.lib opencv_cudabgsegm300d.lib opencv_cudacodec300d.lib opencv_cudafeatures2d300d.lib opencv_cudafilters300d.lib opencv_cudaimgproc300d.lib opencv_cudalegacy300d.lib opencv_cudaoptflow300d.lib opencv_cudastereo300d.lib opencv_cudawarping300d.lib opencv_cudev300d.lib opencv_features2d300d.lib opencv_flann300d.lib opencv_highgui300d.lib opencv_imgcodecs300d.lib opencv_imgproc300d.lib opencv_ml300d.lib opencv_objdetect300d.lib opencv_photo300d.lib opencv_shape300d.lib opencv_stitching300d.lib opencv_superres300d.lib opencv_ts300d.lib opencv_video300d.lib opencv_videoio300d.lib opencv_videostab300d.lib opengl32.lib glu32.lib /ASSEMBLYRESOURCE:x64\Debug\sendBLOBS.Settings.resources /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\EmilFaerch\OneDrive - Aalborg Universitet\Image Processing\sendBLOBS\x64\Debug\sendBLOBS.pdb" /ASSEMBLYDEBUG /TLBID:1 /DYNAMICBASE /FIXED:NO /NXCOMPAT /MACHINE:X64 x64\Debug\main.obj
+         x64\Debug\Settings.obj
+         "x64\Debug\.NETFramework,Version=v4.0.AssemblyAttributes.obj"
+     1>opencv_ts300d.lib(opencv_ts_pch.obj) : warning LNK4099: PDB 'vc120.pdb' was not found with 'opencv_ts300d.lib(opencv_ts_pch.obj)' or at 'C:\Users\EmilFaerch\OneDrive - Aalborg Universitet\Image Processing\sendBLOBS\x64\Debug\vc120.pdb'; linking object as if no debug info
+         sendBLOBS.vcxproj -> C:\Users\EmilFaerch\OneDrive - Aalborg Universitet\Image Processing\sendBLOBS\x64\Debug\sendBLOBS.exe
+     1>Done Building Project "C:\Users\EmilFaerch\OneDrive - Aalborg Universitet\Image Processing\sendBLOBS\sendBLOBS\sendBLOBS.vcxproj" (Rebuild target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:05.36
