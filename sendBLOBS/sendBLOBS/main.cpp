@@ -1,23 +1,29 @@
 #include "opencv2/opencv.hpp"
+#include "opencv2/imgproc.hpp"
+#include "opencv2/highgui.hpp"
 #include "Settings.h"
+#include <Windows.h>
 
 using namespace cv;
 using namespace std;
 using namespace System;
 using namespace System::Windows::Forms;
 
-void findEdge(int posX, int posY, int size, Mat input, int minTH, int maxTH);// , int id);
+void findEdge(int posX, int posY, int size, Mat input, int minTH, int maxTH);
+void increaseContrast(Mat input, int amount);
+Mat hwnd2mat(HWND hwnd); // Function used to get desktop stream
 
-Mat input;
+Mat input, im, blobs, imMean;
 
-Mat im;
-
-Mat blobs;
+HWND hwndDesktop = GetDesktopWindow();
 
 int main(int argc, char** argv)
 {
-	VideoCapture cap(0);
+	//VideoCapture cap(0);
+	//cap.set(CV_CAP_PROP_FRAME_WIDTH, 640);
+	//cap.set(CV_CAP_PROP_FRAME_HEIGHT, 100);	
 
+	// Show Parameter Interface
 	sendBLOBS::Settings formSettings;
 	formSettings.Show();
 
@@ -26,21 +32,26 @@ int main(int argc, char** argv)
 
 	while (true){
 
-		cap.read(input);
+		//cap.read(input);				// Webcam stream
+		input = hwnd2mat(hwndDesktop);	// Desktop stream
 		cvtColor(input, im, CV_RGB2GRAY);
 
-		blobs = Mat::zeros(input.rows, input.cols, CV_8UC1);
+				
+
+		increaseContrast(im, 6);
+
+		blobs = Mat::zeros(input.rows, input.cols, CV_8UC1);	// Initiate / Clear BLOBs picture
 
 		SimpleBlobDetector::Params params;
 
-		// Change thresholds
+		// Filter by Threshold
 		float vminTH, vmaxTH;
 		System::Single::TryParse(formSettings.get_minTH(), vminTH);
 		System::Single::TryParse(formSettings.get_maxTH(), vmaxTH);
 		params.minThreshold = vminTH;
 		params.maxThreshold = vmaxTH;
 
-		// Filter by Area.
+		// Filter by Area
 		float vminA, vmaxA;
 		System::Single::TryParse(formSettings.get_minA(), vminA);
 		System::Single::TryParse(formSettings.get_maxA(), vmaxA);
@@ -87,87 +98,130 @@ int main(int argc, char** argv)
 #endif 
 
 		// Detect blobs
-		detector->detect(im, keypoints); 
+		detector->detect(im, keypoints);
 
 		// Setup SimpleBlobDetector parameters.
 		// Draw detected blobs as red circles.
 		// DrawMatchesFlags::DRAW_RICH_KEYPOINTS flag ensures
 		// the size of the circle corresponds to the size of blob
 
-		Mat im_with_keypoints;
-		drawKeypoints(im, keypoints, im_with_keypoints, Scalar(0, 255, 0), DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
-
-		// Show blobs
-		imshow("keypoints", im_with_keypoints);
+		Mat im_with_keypoints; // image with keypoints
+		drawKeypoints(im, keypoints, im_with_keypoints, Scalar(0, 255, 0), DrawMatchesFlags::DRAW_RICH_KEYPOINTS); // Draw circles on identified BLOBs
 
 		try{
-			if (sizeof(keypoints) > 0){
-				for each (KeyPoint key in keypoints){
-					findEdge(key.pt.x, key.pt.y, key.size, im, vminTH, vmaxTH);
+			if (sizeof(keypoints) > 0){ // if we found any BLOBs
+				for each (KeyPoint key in keypoints){ // for each of those
+					findEdge(key.pt.x, key.pt.y, key.size, im, vminTH, vmaxTH); // we find edges
 				}
 			}
 		}
-		catch (exception e) {}
+		catch (exception e) {} // We get a lot of errors, but this way it doesn't crash
+
+		// Show blobs
+		imshow("keypoints", im_with_keypoints);
+		imshow("Blobs", blobs);
 
 		if (waitKey(30) >= 0) break;
 	}
-		waitKey(0);
+
+	waitKey(0);
+
 	return 0;
-} 
+}
 
 void findEdge(int posX, int posY, int size, Mat input, int minTH, int maxTH){
+	int offset = 5;
 
-	Mat mean = Mat::zeros(input.rows, input.cols, CV_8UC1);
-	Mat Gx = Mat::zeros(input.rows, input.cols, CV_8UC1);
-	Mat Gy = Mat::zeros(input.rows, input.cols, CV_8UC1);
-	Mat Gm = Mat::zeros(input.rows, input.cols, CV_8UC1);
+	float startY = posY - (size / 2) - offset;
+	float stopY = posY + (size / 2) + offset;
+	float sizeY = stopY - startY;
 
-	//Nested for loop to run through all pixels in input image and apply operations to them
-	//The loop starts at 1,1 and ending at width-2,height-2 (because of 3x3 kernel)
-	for (int y = posY - size/2 - 25; y < posY + size / 2 + 25; y++)// abs(posY - size / 2) + 1; y < size - 2; y++)
+	float startX = posX - (size / 2) - offset;
+	float stopX = posX + (size / 2) + offset;
+	float sizeX = stopX - startX;
+
+	Mat foundBLOB = Mat::zeros(sizeY, sizeX, CV_8UC1);
+
+	for (int y = startY; y < stopY; y++)
 	{
-		for (int x = posX - size/2 - 25; x < posX + size / 2 + 25; x++)//(int x = abs(posX - size/2) + 1; x < size - 2; x++)
+		for (int x = startX; x < stopX; x++)
 		{
-			//Applying a Mean filter to the input and saving it to mean
-			//  1 1 1
-			//  1 1 1 x (1/9)
-			//  1 1 1
+			foundBLOB.at<uchar>(y - startY, x - startX) = input.at<uchar>(y, x);
+		}
+	}
 
-			mean.at<unsigned char>(y, x) = (input.at<unsigned char>(y - 1, x - 1) + input.at<unsigned char>(y - 1, x) + input.at<unsigned char>(y - 1, x + 1) +
-				input.at<unsigned char>(y, x - 1) + input.at<unsigned char>(y, x) + input.at<unsigned char>(y, x + 1) +
-				input.at<unsigned char>(y + 1, x - 1) + input.at<unsigned char>(y + 1, x) + input.at<unsigned char>(y + 1, x + 1)) / 9;
+	GaussianBlur(foundBLOB, foundBLOB, Size(7, 7), 1.5, 1.5);
+	Canny(foundBLOB, foundBLOB, 0, 30, 3);
 
-			//This kernel is applied to mean and saved in Gx:
-			// 0  1  2
-			//-1  0  1
-			//-2 -1  0				
-
-			Gx.at<unsigned char>(y, x) = mean.at<unsigned char>(y - 1, x) + (mean.at<unsigned char>(y - 1, x + 1) * 2) +
-				(mean.at<unsigned char>(y, x - 1)* -1) + mean.at<unsigned char>(y, x + 1) +
-				(mean.at<unsigned char>(y + 1, x - 1)* -2) + (mean.at<unsigned char>(y + 1, x)* -1);
-
-			//This kernel is applied to mean and saved in Gy:
-			// -2 -1  0
-			// -1  0  1
-			//  0  1  2
-
-			Gy.at<unsigned char>(y, x) = (mean.at<unsigned char>(y - 1, x - 1)*-2) + (mean.at<unsigned char>(y - 1, x) * -1) +
-				(mean.at<unsigned char>(y, x - 1)*-1) + mean.at<unsigned char>(y, x + 1) +
-				mean.at<unsigned char>(y + 1, x) + (mean.at<unsigned char>(y + 1, x + 1) * 2);
-
-			//Apply Gm = |Gx|+|Gy| and save it in Gm
-			Gm.at<unsigned char>(y, x) = abs(Gy.at<unsigned char>(y, x)) + abs(Gx.at<unsigned char>(y, x));
-
-			if (Gm.at<unsigned char>(y, x) >= minTH && Gm.at<uchar>(y, x) <= maxTH)
-			{
-				blobs.at<unsigned char>(y, x) = 255; //White if the input is above the threshold
-			}
-			else
-			{
-				blobs.at<unsigned char>(y, x) = 0; //Black if its below (It already is)
-			}
+	for (int y = 0; y < sizeY; y++)
+	{
+		for (int x = 0; x < sizeX; x++)
+		{
+			blobs.at<uchar>(y + startY, x + startX) = foundBLOB.at<uchar>(y, x);
 		}
 	}
 
 	imshow("Blobs", blobs);
+}
+
+void increaseContrast(Mat input, int amount){
+	for (int y = 0; y < input.rows; y++){
+		for (int x = 0; x < input.cols; x++){
+			input.at<uchar>(y, x) = input.at<uchar>(y, x) * amount;
+		}
+	}
+}
+
+Mat hwnd2mat(HWND hwnd) // Dont ask me about this :S - found this snippet online
+{
+	HDC hwindowDC, hwindowCompatibleDC;
+
+	int height, width, srcheight, srcwidth;
+	HBITMAP hbwindow;
+	Mat src;
+	BITMAPINFOHEADER  bi;
+
+	hwindowDC = GetDC(hwnd);
+	hwindowCompatibleDC = CreateCompatibleDC(hwindowDC);
+	SetStretchBltMode(hwindowCompatibleDC, COLORONCOLOR);
+
+	RECT windowsize;    // get the height and width of the screen
+	GetClientRect(hwnd, &windowsize);
+
+	// SOURCE CAPTURE
+	srcheight = windowsize.bottom / 1.05;
+	srcwidth = windowsize.right / 1.6;
+
+	// DISPLAY WINDOW
+	height = windowsize.bottom / 1.35;
+	width = windowsize.right / 2;
+
+	src.create(height, width, CV_8UC4);
+
+	// create a bitmap
+	hbwindow = CreateCompatibleBitmap(hwindowDC, width, height);
+	bi.biSize = sizeof(BITMAPINFOHEADER);    //http://msdn.microsoft.com/en-us/library/windows/window/dd183402%28v=vs.85%29.aspx
+	bi.biWidth = width;
+	bi.biHeight = -height;  //this is the line that makes it draw upside down or not
+	bi.biPlanes = 1;
+	bi.biBitCount = 32;
+	bi.biCompression = BI_RGB;
+	bi.biSizeImage = 0;
+	bi.biXPelsPerMeter = 0;
+	bi.biYPelsPerMeter = 0;
+	bi.biClrUsed = 0;
+	bi.biClrImportant = 0;
+
+	// use the previously created device context with the bitmap
+	SelectObject(hwindowCompatibleDC, hbwindow);
+	// copy from the window device context to the bitmap device context
+	StretchBlt(hwindowCompatibleDC, 0, 0, width, height, hwindowDC, 0, 0, srcwidth, srcheight, SRCCOPY); //change SRCCOPY to NOTSRCCOPY for wacky colors !
+	GetDIBits(hwindowCompatibleDC, hbwindow, 0, height, src.data, (BITMAPINFO *)&bi, DIB_RGB_COLORS);  //copy from hwindowCompatibleDC to hbwindow
+
+	// avoid memory leak
+	DeleteObject(hbwindow);
+	DeleteDC(hwindowCompatibleDC);
+	ReleaseDC(hwnd, hwindowDC);
+
+	return src;
 }
