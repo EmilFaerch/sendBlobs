@@ -163,7 +163,7 @@ namespace sendBLOBS {
 			// 
 			this->minA->Location = System::Drawing::Point(12, 59);
 			this->minA->Maximum = 5000;
-			this->minA->Minimum = 100;
+			this->minA->Minimum = 10;
 			this->minA->Name = L"minA";
 			this->minA->Size = System::Drawing::Size(104, 56);
 			this->minA->TabIndex = 8;
@@ -425,7 +425,7 @@ namespace sendBLOBS {
 #pragma endregion
 	/*
 	************ STANDARD VARIABLES! ************/
-	public: float vminA = 100, vmaxA = 400, vminTH = 0, vmaxTH = 120, vminCir = 50, vmaxCir = 100, vminIn = 70, vmaxIn = 100, vminCon = 70, vmaxCon = 100;
+	public: float vminA = 1000, vmaxA = 4000, vminTH = 0, vmaxTH = 120, vminCir = 50, vmaxCir = 100, vminIn = 70, vmaxIn = 100, vminCon = 70, vmaxCon = 100;
 
 public: System::String^ get_minA(){ return Convert::ToString(vminA); }
 public: System::String^ get_maxA(){ return Convert::ToString(vmaxA); }

@@ -11,9 +11,12 @@ using namespace System::Windows::Forms;
 
 void findEdge(int posX, int posY, int size, Mat input, int minTH, int maxTH);
 void increaseContrast(Mat input, int amount);
+void subtractBack(Mat background, Mat input);
+void findTriangle(int posX, int posY, int size, Mat input);
+
 Mat hwnd2mat(HWND hwnd); // Function used to get desktop stream
 
-Mat input, im, blobs, imMean;
+Mat input, im, blobs, background, b_triangle;
 
 HWND hwndDesktop = GetDesktopWindow();
 
@@ -29,6 +32,9 @@ int main(int argc, char** argv)
 
 	// Storage for blobs
 	vector<KeyPoint> keypoints;
+	background = hwnd2mat(hwndDesktop);
+
+	b_triangle = imread("C:/Users/EmilFaerch/Desktop/trekant.PNG", 0);
 
 	while (true){
 
@@ -36,9 +42,10 @@ int main(int argc, char** argv)
 		input = hwnd2mat(hwndDesktop);	// Desktop stream
 		cvtColor(input, im, CV_RGB2GRAY);
 
-				
-
-		increaseContrast(im, 6);
+		//subtractBack(background, im);
+	
+	//	GaussianBlur(im, im, Size(7, 7), 1.5, 1.5);
+	//	increaseContrast(im, 3);
 
 		blobs = Mat::zeros(input.rows, input.cols, CV_8UC1);	// Initiate / Clear BLOBs picture
 
@@ -111,7 +118,11 @@ int main(int argc, char** argv)
 		try{
 			if (sizeof(keypoints) > 0){ // if we found any BLOBs
 				for each (KeyPoint key in keypoints){ // for each of those
+					printf("Found a blob!\n");
 					findEdge(key.pt.x, key.pt.y, key.size, im, vminTH, vmaxTH); // we find edges
+					printf("Found edges!\n");
+					findTriangle(key.pt.x, key.pt.y, key.size, blobs);
+					printf("Looked for triangle!\n");
 				}
 			}
 		}
@@ -165,12 +176,78 @@ void findEdge(int posX, int posY, int size, Mat input, int minTH, int maxTH){
 }
 
 void increaseContrast(Mat input, int amount){
+	int curVal;
 	for (int y = 0; y < input.rows; y++){
 		for (int x = 0; x < input.cols; x++){
-			input.at<uchar>(y, x) = input.at<uchar>(y, x) * amount;
+			curVal = input.at<uchar>(y, x);
+			if (curVal * amount <= 255) input.at<uchar>(y, x) = curVal * amount;
+			else input.at<uchar>(y, x) = 255;
 		}
 	}
 }
+
+
+// Virker ikke, fordi vi ikke tager størrelsesforhold i betragtning! Template skal være samme størrelse som BLOB vi finder, på bordet!
+// ... og så er der fejl næsten hele tiden. -- nok fordi DET ER SÅ LILLE ET TEMPLATE!
+void findTriangle(int posX, int posY, int size, Mat input){
+	printf("Finding triangle...\n");
+	int samePix = 0;
+	int offset = 5;
+
+	float startY = posY - (size / 2) - offset;
+	float stopY = posY + (size / 2) + offset;
+	float sizeY = stopY - startY;
+
+	float startX = posX - (size / 2) - offset;
+	float stopX = posX + (size / 2) + offset;
+	float sizeX = stopX - startX;
+
+	for (int y = startY; y < stopY; y++)
+	{
+		printf("For-loop Y\n");
+		for (int x = startX; x < stopX; x++)
+		{
+			printf("For-loop X\n");
+			printf("Checking to see if they're the same.\n");
+			if (b_triangle.at<uchar>(y - startY, x - startX) == input.at<uchar>(y,x)){
+				printf("They were the same! samePix++\n");
+				samePix++;
+			}
+			else
+			{
+				printf("Not the same ...\n");
+			}
+		}
+	}
+
+	if (samePix / (sizeX * sizeY) * 100 < 75.0){
+		printf("Under 75 percent correct\n");
+	}
+	else
+	{
+		printf("Above 75 percent correct\n");
+	}
+
+}
+
+/* Hold kæft hvor det ikke virker -----
+void subtractBack(Mat background, Mat input){
+	int pixInp, pixBG, pixVal;
+
+	blur(background, background, Size(30, 30));
+
+	for (int y = 0; y < background.rows; y++){
+		for (int x = 0; x < background.cols; x++){
+			pixInp = input.at<uchar>(y, x);
+			pixBG = background.at<uchar>(y, x);
+			pixVal = pixInp - pixBG;
+
+			if (pixVal < 256 || pixVal > -1) input.at<uchar>(y, x) = pixVal;
+			else if (pixVal > 255) input.at<uchar>(y, x) = 255;
+			else input.at<uchar>(y, x) = 0;
+		}
+	}
+}*/
 
 Mat hwnd2mat(HWND hwnd) // Dont ask me about this :S - found this snippet online
 {
@@ -189,11 +266,11 @@ Mat hwnd2mat(HWND hwnd) // Dont ask me about this :S - found this snippet online
 	GetClientRect(hwnd, &windowsize);
 
 	// SOURCE CAPTURE
-	srcheight = windowsize.bottom / 1.05;
+	srcheight = windowsize.bottom / 1.1;
 	srcwidth = windowsize.right / 1.6;
 
 	// DISPLAY WINDOW
-	height = windowsize.bottom / 1.35;
+	height = windowsize.bottom / 1.37;
 	width = windowsize.right / 2;
 
 	src.create(height, width, CV_8UC4);
@@ -215,7 +292,7 @@ Mat hwnd2mat(HWND hwnd) // Dont ask me about this :S - found this snippet online
 	// use the previously created device context with the bitmap
 	SelectObject(hwindowCompatibleDC, hbwindow);
 	// copy from the window device context to the bitmap device context
-	StretchBlt(hwindowCompatibleDC, 0, 0, width, height, hwindowDC, 0, 0, srcwidth, srcheight, SRCCOPY); //change SRCCOPY to NOTSRCCOPY for wacky colors !
+	StretchBlt(hwindowCompatibleDC, -2, -30, width, height, hwindowDC, 0, 0, srcwidth, srcheight, SRCCOPY); //change SRCCOPY to NOTSRCCOPY for wacky colors !
 	GetDIBits(hwindowCompatibleDC, hbwindow, 0, height, src.data, (BITMAPINFO *)&bi, DIB_RGB_COLORS);  //copy from hwindowCompatibleDC to hbwindow
 
 	// avoid memory leak
