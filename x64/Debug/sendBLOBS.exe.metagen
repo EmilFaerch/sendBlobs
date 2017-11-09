@@ -1,0 +1,41 @@
+  sendBLOBS.Settings.resources - Embedded, ContainedInManifestFile, 
+ImageRuntimeVersion: v4.0.30319
+Assembly sendBLOBS, Version=0.0.*, Culture=Invariant Language (Invariant Country): 
+	hash=SHA1, flags=PublicKey
+Assembly mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a: 
+	hash=None, flags=None
+Assembly System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Xml, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Class sendBLOBS.Settings: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Windows.Forms.Form
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Single vminA : Public
+    Single vmaxA : Public
+    Single vminTH : Public
+    Single vmaxTH : Public
+    Single vminCir : Public
+    Single vmaxCir : Public
+    Single vminIn : Public
+    Single vmaxIn : Public
+    Single vminCon : Public
+    Single vmaxCon : Public
+  Methods:
+    get_minA(): PrivateScope, Public, HideBySig
+    get_maxA(): PrivateScope, Public, HideBySig
+    get_minTH(): PrivateScope, Public, HideBySig
+    get_maxTH(): PrivateScope, Public, HideBySig
+    get_minCir(): PrivateScope, Public, HideBySig
+    get_maxCir(): PrivateScope, Public, HideBySig
+    get_minCon(): PrivateScope, Public, HideBySig
+    get_maxCon(): PrivateScope, Public, HideBySig
+    get_minIn(): PrivateScope, Public, HideBySig
+    get_maxIn(): PrivateScope, Public, HideBySig
