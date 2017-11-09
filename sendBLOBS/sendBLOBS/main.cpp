@@ -34,7 +34,7 @@ int main(int argc, char** argv)
 	vector<KeyPoint> keypoints;
 	background = hwnd2mat(hwndDesktop);
 
-	b_triangle = imread("C:/Users/EmilFaerch/Desktop/trekant.PNG", 0);
+	b_triangle = imread("C:/Users/EmilFaerch/Desktop/ship4.PNG", 0);
 
 	while (true){
 
@@ -45,7 +45,7 @@ int main(int argc, char** argv)
 		//subtractBack(background, im);
 	
 	//	GaussianBlur(im, im, Size(7, 7), 1.5, 1.5);
-	//	increaseContrast(im, 3);
+		increaseContrast(im, 2);
 
 		blobs = Mat::zeros(input.rows, input.cols, CV_8UC1);	// Initiate / Clear BLOBs picture
 
